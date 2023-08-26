@@ -1,12 +1,8 @@
-import axios from 'axios';
 import { fetchBreeds, fetchCatByBreed } from './my-modules/cat-api';
+import { createMarkup, hiddenToggle } from './my-modules/helpers';
+import { elements } from "./my-modules/elements";
 
-axios.defaults.headers.common["x-api-key"] = "live_nw90KoKkx08rplOu0U5nEgLcW4QWGBSMumNO4LrJsO5ceNb7MvsR0XnejQfUa856";
-
-const select = document.querySelector('.js-breed-select');
-const box = document.querySelector('.js-cat-info');
-
-select.addEventListener('input', handlerSelect);
+elements.select.addEventListener('input', handlerSelect);
 
 fetchBreeds()
     .then(response => {
@@ -14,27 +10,23 @@ fetchBreeds()
             .map(({ id, name }) => `<option value="${id}">${name}</option>`)
             .join('');
 
-        select.insertAdjacentHTML('beforeend', catSelect);
+        elements.select.insertAdjacentHTML('beforeend', catSelect);
+
+        hiddenToggle(elements.select);
     })
-    .catch(error => console.log(error));
+    .catch((_) => hiddenToggle(elements.err))
+    .finally((_) => hiddenToggle(elements.loader));
 
 function handlerSelect(evt) {
     fetchCatByBreed(evt.target.value)
         .then(response => {
             const { url } = response.data[0];
             const { name, description, temperament } = response.data[0].breeds[0];
+
             createMarkup(url, name, description, temperament);
+            
+            hiddenToggle(elements.box);
         })
-        .catch(error => console.log(error));
+        .catch((_) => elements.err.classList.remove("visually-hidden"))
+        .finally((_) => hiddenToggle(elements.loader));
 }
-
-function createMarkup(img, breed, description, temperament) {
-    box.innerHTML = `
-    <img src="${img}" alt="${breed}">
-    <div>
-        <h3>${breed}</h3>
-        <p>${description}</p>
-        <p><span>Temperament: </span>${temperament}</p>
-    </div>`;
-}
-
