@@ -8,6 +8,12 @@ p {
 body {
     font-family: 'Raleway', sans-serif;
     line-height: 1.5;
+    text-shadow: 2px -2px 0 #fff;
+    background-image: url('http://surl.li/kmlgg');
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    background-size: cover;
+    
 }
 
 .visually-hidden {
