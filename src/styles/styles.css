@@ -25,7 +25,10 @@ body {
 }
 
 .breed-select {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
     margin-bottom: 15px;
+    border: none;
 }
 
 .loader {
@@ -45,8 +48,8 @@ body {
 
 .cat-img {
     display: block;
-    max-width: 450px;
-    max-height: 600px;
+    max-width: 360px;
+    max-height: 450px;
 }
 
 .cat-info-box {

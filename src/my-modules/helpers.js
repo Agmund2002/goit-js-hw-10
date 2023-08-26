@@ -1,6 +1,11 @@
 import { elements } from "./elements";
 
-function createMarkup(img, breed, description, temperament) {
+function createMarkup(
+    img = 'http://surl.li/kmkjx',
+    breed = 'cat',
+    description = 'All cats are beautiful',
+    temperament = 'cute, warm, playful'
+) {
     elements.box.innerHTML = `
     <img class="cat-img" src="${img}" alt="${breed}">
     <div class="cat-info-box">
